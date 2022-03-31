@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
 public class Post {
@@ -18,8 +18,6 @@ public class Post {
     private String post_message;
 
     private Timestamp post_created_at;
-
-    private Timestamp post_updated_at;
 
     @ManyToOne
     @JoinColumn(name = "post_user")
@@ -47,14 +45,6 @@ public class Post {
 
     public void setPost_created_at(Timestamp post_created_at) {
         this.post_created_at = post_created_at;
-    }
-
-    public Timestamp getPost_updated_at() {
-        return post_updated_at;
-    }
-
-    public void setPost_updated_at(Timestamp post_updated_at) {
-        this.post_updated_at = post_updated_at;
     }
 
     public User getPost_user_id() {

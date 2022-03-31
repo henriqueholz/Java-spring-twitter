@@ -18,7 +18,8 @@ public class User {
     @Pattern(regexp = "[a-zA-Z0-9 ]")
     private String username;
 
-    private Timestamp joined_at; // format "March 25, 2021"
+    // TODO: format "March 25, 2021"
+    private Timestamp joined_at;
 
     @OneToMany(mappedBy = "following")
     private List<Follower> following;
