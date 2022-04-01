@@ -15,7 +15,7 @@ public class User {
     private long userid;
 
     @Size(max = 14)
-    @Pattern(regexp = "[a-zA-Z0-9 ]")
+//    @Pattern(regexp = "[a-zA-Z0-9 ]")
     private String username;
 
     // TODO: format "March 25, 2021"
