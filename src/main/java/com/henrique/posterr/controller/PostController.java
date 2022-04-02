@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/api")
 public class PostController {
@@ -73,5 +75,35 @@ public class PostController {
         apiResponse.setData(repostedPost);
 
         return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/userfeed/{number_of_posts}", produces = "application/json")
+    public ResponseEntity<Object> getFeed(
+            @PathVariable("number_of_posts") int numberOfPosts
+    )
+    {
+        if (loggedUser == null) {
+            getLoggedUser();
+        }
+        List<Post> userFeed = postService.getFeedByUser(loggedUser, numberOfPosts);
+        apiResponse.setMessage("User Feed");
+        apiResponse.setData(userFeed);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/feed/{number_of_posts}", produces = "application/json")
+    public ResponseEntity<Object> getFullFeed(
+            @PathVariable("number_of_posts") int numberOfPosts
+    )
+    {
+        if (loggedUser == null) {
+            getLoggedUser();
+        }
+        List<Post> userFeed = postService.getFullFeed(numberOfPosts);
+        apiResponse.setMessage("Full Feed");
+        apiResponse.setData(userFeed);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
     }
 }

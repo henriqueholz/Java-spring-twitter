@@ -1,4 +1,4 @@
-package com.henrique.posterr.util;
+package com.henrique.posterr.enumutil;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
