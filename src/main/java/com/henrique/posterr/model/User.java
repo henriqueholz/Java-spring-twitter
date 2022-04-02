@@ -3,6 +3,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.List;
@@ -14,10 +15,9 @@ public class User {
     private long userid;
 
     @Size(max = 14)
-//    @Pattern(regexp = "[a-zA-Z0-9 ]")
+    @Pattern(regexp = "[a-zA-Z0-9]+")
     private String username;
 
-    // TODO: format "March 25, 2021"
     private Timestamp joined_at;
 
     @OneToMany(mappedBy = "following")
