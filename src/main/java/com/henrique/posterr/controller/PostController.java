@@ -1,5 +1,9 @@
 package com.henrique.posterr.controller;
 
+import com.henrique.posterr.Responses.ApiResponse;
+import com.henrique.posterr.dao.PostRepository;
+import com.henrique.posterr.dao.UserRepository;
+import com.henrique.posterr.model.User;
 import com.henrique.posterr.service.PostService;
 import com.henrique.posterr.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,26 +11,68 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/api")
 public class PostController {
     @Autowired
     private PostService postService;
+    @Autowired
+    private UserRepository R_User;
+    @Autowired
+    private PostRepository R_Post;
+    @Autowired
+    private ApiResponse apiResponse;
 
-    @PostMapping(path = "/post/create", produces = "application/json")
-    public ResponseEntity<Object> createPost(@RequestBody Post newPost)
-    {
-        Post savedPost = postService.createPost(newPost);
-        Map<String,Object> response = new HashMap<>();
-        response.put("post", savedPost);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    public User loggedUser;
+
+    public void getLoggedUser() {
+        long mockedUserId = 1;
+        loggedUser = R_User.findByUserid(mockedUserId);
+    }
+
+    @PostMapping(path = "/create", produces = "application/json")
+    public ResponseEntity<Object> createPost(
+            @RequestBody Post newPost) throws Exception {
+        if (loggedUser == null) {
+            getLoggedUser();
+        }
+        Post savedPost = postService.createPost(loggedUser, newPost);
+        apiResponse.setMessage("Post created with success");
+        apiResponse.setData(savedPost);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/repost/{post_id}", produces = "application/json")
+    public ResponseEntity<Object> repost(
+            @PathVariable("post_id") String postId) throws Exception {
+        if (loggedUser == null) {
+            getLoggedUser();
+        }
+        Post repostedPost = postService.repostPost(loggedUser, postId);
+        apiResponse.setMessage("Post reposted with success");
+        apiResponse.setData(repostedPost);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/quote/{post_id}", produces = "application/json")
+    public ResponseEntity<Object> quote(
+            @PathVariable("post_id") String postId,
+            @RequestBody Post quotePost) throws Exception {
+        if (loggedUser == null) {
+            getLoggedUser();
+        }
+        Post repostedPost = postService.quotePost(loggedUser, postId, quotePost);
+        apiResponse.setMessage("Post quoted with success");
+        apiResponse.setData(repostedPost);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
     }
 }

@@ -1,11 +1,14 @@
 package com.henrique.posterr.model;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Pattern;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -30,6 +33,9 @@ public class User {
     @OneToMany(mappedBy = "post_user")
     private List<Post> post_user;
 
+    @OneToMany(mappedBy = "repost_user")
+    private List<Post> repost_user;
+
     public long getUser_id() {
         return userid;
     }
@@ -53,5 +59,4 @@ public class User {
     public void setUser_joined_at(Timestamp user_joined_at) {
         this.joined_at = user_joined_at;
     }
-
 }

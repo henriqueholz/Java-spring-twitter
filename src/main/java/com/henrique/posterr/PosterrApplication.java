@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class PosterrApplication {
 			for (String name : names) {
 				User user = new User();
 				user.setUsername(name);
+				user.setUser_joined_at(new Timestamp(System.currentTimeMillis()));
 				userRepository.save(user);
 			}
 		};
