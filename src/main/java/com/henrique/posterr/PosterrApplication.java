@@ -1,6 +1,8 @@
 package com.henrique.posterr;
 
+import com.henrique.posterr.dao.PostRepository;
 import com.henrique.posterr.dao.UserRepository;
+import com.henrique.posterr.model.Post;
 import com.henrique.posterr.model.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +21,7 @@ public class PosterrApplication {
 	}
 
 	@Bean
-	CommandLineRunner init (UserRepository userRepository){
+	CommandLineRunner init (UserRepository userRepository, PostRepository postRepository){
 		return args -> {
 			List<String> names = Arrays.asList("JoeBiden", "DonaldTrump", "BarackObama", "GeorgeBush");
 			for (String name : names) {
@@ -27,6 +29,10 @@ public class PosterrApplication {
 				user.setUsername(name);
 				user.setUser_joined_at(new Timestamp(System.currentTimeMillis()));
 				userRepository.save(user);
+				Post post = new Post();
+				post.setPost_user(user);
+				post.setPost_message(user.getUsername() + " says hi");
+				postRepository.save(post);
 			}
 		};
 	}

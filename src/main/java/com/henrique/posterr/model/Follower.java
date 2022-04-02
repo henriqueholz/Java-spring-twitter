@@ -2,6 +2,7 @@ package com.henrique.posterr.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,8 +18,8 @@ public class Follower {
     private User following;
 
     @ManyToOne
-    @JoinColumn(name = "followers")
-    private User followers;
+    @JoinColumn(name = "follower")
+    private User follower;
 
     public Long getId() {
         return id;
@@ -36,11 +37,11 @@ public class Follower {
         this.following = following;
     }
 
-    public User getFollowers() {
-        return followers;
+    public User getFollower() {
+        return follower;
     }
 
-    public void setFollowers(User followers) {
-        this.followers = followers;
+    public void setFollower(User follower) {
+        this.follower = follower;
     }
 }

@@ -2,6 +2,7 @@ package com.henrique.posterr.model;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,7 +28,7 @@ public class User {
     @OneToMany(mappedBy = "following")
     private List<Follower> following;
 
-    @OneToMany(mappedBy = "followers")
+    @OneToMany(mappedBy = "follower")
     private List<Follower> followers;
 
     @OneToMany(mappedBy = "post_user")
