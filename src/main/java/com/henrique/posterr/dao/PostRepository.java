@@ -12,7 +12,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
     Post findByPostid(long postid);
 
-    @Query( value="SELECT TOP ?1 * FROM POST" +
+    @Query( value="SELECT TOP ?1 * FROM POST " +
             "ORDER BY POST_CREATED_AT DESC",
             nativeQuery = true)
     List<Post> getAllPosts(int numberOfPosts);
@@ -20,8 +20,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query( value="SELECT TOP ?1 * FROM POST WHERE (" +
             "POST_USER = ?2 OR " +
             "REPOST_USER = ?2 OR " +
-            "POST_USER IN (SELECT FOLLOWING FROM FOLLOWER WHERE FOLLOWER = ?2)  OR" +
-            "REPOST_USER IN (SELECT FOLLOWING FROM FOLLOWER WHERE FOLLOWER = ?2) )" +
+            "POST_USER IN (SELECT FOLLOWING FROM FOLLOWER WHERE FOLLOWER = ?2)  OR " +
+            "REPOST_USER IN (SELECT FOLLOWING FROM FOLLOWER WHERE FOLLOWER = ?2) ) " +
             "ORDER BY POST_CREATED_AT DESC",
             nativeQuery = true)
     List<Post> findPostsByUser(int numberOfPosts, Long userid);
