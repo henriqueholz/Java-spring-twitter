@@ -3,7 +3,7 @@ package com.henrique.posterr.controller;
 import com.henrique.posterr.Responses.ApiResponse;
 import com.henrique.posterr.dao.PostRepository;
 import com.henrique.posterr.dao.UserRepository;
-import com.henrique.posterr.model.User;
+import com.henrique.posterr.model.PosterrUser;
 import com.henrique.posterr.service.PostService;
 import com.henrique.posterr.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class PostController {
     @Autowired
     private ApiResponse apiResponse;
 
-    public User loggedUser;
+    public PosterrUser loggedUser;
 
     public void getLoggedUser() {
         long mockedUserId = 1;

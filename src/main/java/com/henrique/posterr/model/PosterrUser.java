@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-public class User {
+public class PosterrUser {
     @Id
     @GeneratedValue
     private long userid;

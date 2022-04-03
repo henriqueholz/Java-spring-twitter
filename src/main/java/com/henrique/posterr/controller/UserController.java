@@ -3,7 +3,7 @@ package com.henrique.posterr.controller;
 import com.henrique.posterr.Responses.UserProfileResponse;
 import com.henrique.posterr.dao.PostRepository;
 import com.henrique.posterr.dao.UserRepository;
-import com.henrique.posterr.model.User;
+import com.henrique.posterr.model.PosterrUser;
 import com.henrique.posterr.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class UserController {
             @PathVariable("user_id") long user_id
     ) throws Exception
     {
-        User user = R_User.findByUserid(user_id);
+        PosterrUser user = R_User.findByUserid(user_id);
         userProfileResponse.setUsername(user.getUsername());
         userProfileResponse.setJoinedDate(dateUtil.currentDate(user.getUser_joined_at()));
         userProfileResponse.setFollowsNumber(R_User.getUserFollowingNumber(user_id));

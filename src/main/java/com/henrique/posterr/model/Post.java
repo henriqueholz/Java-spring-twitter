@@ -28,11 +28,11 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "post_user")
-    private User post_user;
+    private PosterrUser post_user;
 
     @ManyToOne
     @JoinColumn(name = "repost_user")
-    private User repost_user;
+    private PosterrUser repost_user;
 
     private long original_postid;
 
@@ -68,15 +68,15 @@ public class Post {
         this.post_created_at = post_created_at;
     }
 
-    public User getPost_user_id() {
+    public PosterrUser getPost_user_id() {
         return post_user;
     }
 
-    public void setPost_user(User user) {
+    public void setPost_user(PosterrUser user) {
         this.post_user = user;
     }
 
-    public void setRepost_user(User user) {
+    public void setRepost_user(PosterrUser user) {
         this.repost_user = user;
     }
 
@@ -87,6 +87,4 @@ public class Post {
     public void setPostType(EnumPostType postType) {
         this.postType = postType;
     }
-
-
 }

@@ -4,7 +4,7 @@ import com.henrique.posterr.dao.FollowRepository;
 import com.henrique.posterr.dao.PostRepository;
 import com.henrique.posterr.dao.UserRepository;
 import com.henrique.posterr.model.Post;
-import com.henrique.posterr.model.User;
+import com.henrique.posterr.model.PosterrUser;
 import com.henrique.posterr.service.FollowService;
 import com.henrique.posterr.service.PostService;
 import com.henrique.posterr.util.DateUtil;
@@ -34,18 +34,18 @@ public class PosterrServiceTest {
     @Mock
     FollowRepository R_Follow;
     @Mock
-    DateUtil timestampUtil;
+    DateUtil dateUtil;
 
     @Test
     void create_post_should_return_a_post() throws Exception {
-        User loggedInUser = new User();
+        PosterrUser loggedInUser = new PosterrUser();
         loggedInUser.setUsername("user test");
         loggedInUser.setUser_id(1);
         Post newPost = new Post();
         newPost.setPost_message("unit testing");
         Mockito.when(R_User.findByUserid(1)).thenReturn(loggedInUser);
         Mockito.when(R_Post.save(any(Post.class))).thenReturn(newPost);
-        Mockito.when(timestampUtil.currentTimestamp()).thenReturn(new Timestamp(System.currentTimeMillis()));
+        Mockito.when(dateUtil.currentTimestamp()).thenReturn(new Timestamp(System.currentTimeMillis()));
 
         Post savedPost = postService.createPost(loggedInUser, newPost);
         Assert.isTrue(savedPost instanceof Post);
@@ -56,7 +56,7 @@ public class PosterrServiceTest {
     @Test
     void follow_an_nonexistent_user_should_throw_exception() throws Exception
     {
-        User loggedInUser = new User();
+        PosterrUser loggedInUser = new PosterrUser();
         loggedInUser.setUser_id(1);
         loggedInUser.setUsername("logged user");
         Mockito.when(R_User.save(loggedInUser)).thenReturn(loggedInUser);

@@ -3,7 +3,7 @@ package com.henrique.posterr.service;
 import com.henrique.posterr.dao.FollowRepository;
 import com.henrique.posterr.dao.UserRepository;
 import com.henrique.posterr.model.Follower;
-import com.henrique.posterr.model.User;
+import com.henrique.posterr.model.PosterrUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ public class FollowService {
     @Autowired
     FollowRepository R_Follow;
 
-    public void followUser(User loggedUser, Long user_id) throws Exception
+    public void followUser(PosterrUser loggedUser, Long user_id) throws Exception
     {
-        User followedUser = R_User.findById(user_id).orElse(null);
+        PosterrUser followedUser = R_User.findById(user_id).orElse(null);
         if (followedUser == null)
         {
             throw new Exception("User not found");
@@ -35,9 +35,9 @@ public class FollowService {
         R_Follow.save(follower);
     }
 
-    public void unfollowUser(User loggedUser, Long user_id) throws Exception
+    public void unfollowUser(PosterrUser loggedUser, Long user_id) throws Exception
     {
-        User unfollowedUser = R_User.findById(user_id).orElse(null);
+        PosterrUser unfollowedUser = R_User.findById(user_id).orElse(null);
         if(unfollowedUser == null)
         {
             throw new Exception("User not found");

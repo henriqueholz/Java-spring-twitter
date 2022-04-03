@@ -4,7 +4,7 @@ import com.henrique.posterr.dao.PostRepository;
 import com.henrique.posterr.dao.UserRepository;
 import com.henrique.posterr.enumutil.EnumPostType;
 import com.henrique.posterr.model.Post;
-import com.henrique.posterr.model.User;
+import com.henrique.posterr.model.PosterrUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class PostService {
     @Autowired
     UserRepository R_User;
 
-    public Post createPost(User loggedUser, Post newPost) throws Exception {
+    public Post createPost(PosterrUser loggedUser, Post newPost) throws Exception {
         if (R_Post.countDailyPostsByUser(loggedUser.getUser_id()) > 5) {
             throw new Exception("A user is not allowed to post more than 5 posts in one day (including reposts and quote posts)");
         }
@@ -29,7 +29,7 @@ public class PostService {
         return R_Post.save(newPost);
     }
 
-    public Post repostPost(User loggedUser, String PostId) throws Exception {
+    public Post repostPost(PosterrUser loggedUser, String PostId) throws Exception {
         if (R_Post.countDailyPostsByUser(loggedUser.getUser_id()) > 5) {
             throw new Exception("A user is not allowed to post more than 5 posts in one day (including reposts and quote posts)");
         }
@@ -50,7 +50,7 @@ public class PostService {
         return R_Post.save(newPost);
     }
 
-    public Post quotePost(User loggedUser, String PostId, Post newPost) throws Exception {
+    public Post quotePost(PosterrUser loggedUser, String PostId, Post newPost) throws Exception {
         if (R_Post.countDailyPostsByUser(loggedUser.getUser_id()) > 5) {
             throw new Exception("A user is not allowed to post more than 5 posts in one day (including reposts and quote posts)");
         }
@@ -72,7 +72,7 @@ public class PostService {
         return R_Post.save(newQuotePost);
     }
 
-    public List<Post> getFeedByUser(User loggedUser, int numberOfPosts)
+    public List<Post> getFeedByUser(PosterrUser loggedUser, int numberOfPosts)
     {
         List<Post> userPosts = R_Post.findPostsByUser(numberOfPosts, loggedUser.getUser_id());
         return userPosts;
