@@ -48,6 +48,10 @@ GET -> http://localhost:8080/api/user/{user_id}
 - User profile page
 - Get information of the user
 
+GET -> http://localhost:8080/api/search/{word}
+- Extra feature: search
+- Get posts and quotes if a given word
+
 ## Planning
 Questions:
 - Does a user have access to other users’ “Posts and Replies” page?

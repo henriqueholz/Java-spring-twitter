@@ -106,4 +106,22 @@ public class PostController {
 
         return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
     }
+
+    @GetMapping(path = "/search/{word}", produces = "application/json")
+    public ResponseEntity<Object> getSearch(
+            @PathVariable("word") String word
+    )
+    {
+        if (loggedUser == null) {
+            getLoggedUser();
+        }
+        List<Post> filtredPosts = postService.getSearch(word);
+        if (filtredPosts.size() == 0) {
+            apiResponse.setMessage("No posts found with the keyword " + word);
+        } else {
+            apiResponse.setMessage("We found " + filtredPosts.size() + " posts with the keyword " + word);
+            apiResponse.setData(filtredPosts);
+        }
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
+    }
 }

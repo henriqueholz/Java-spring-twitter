@@ -83,4 +83,10 @@ public class PostService {
         List<Post> userPosts = R_Post.getAllPosts(numberOfPosts);
         return userPosts;
     }
+
+    public List<Post> getSearch(String word)
+    {
+        List<Post> userPosts = R_Post.search(word);
+        return userPosts;
+    }
 }

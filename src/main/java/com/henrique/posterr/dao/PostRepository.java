@@ -28,4 +28,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query( value="SELECT COUNT(*) FROM POST WHERE (POST_USER = ?1 OR REPOST_USER = ?1) AND POST_CREATED_AT >= NOW() - INTERVAL '24 HOURS';",
             nativeQuery = true)
     Long countDailyPostsByUser(Long userid);
+
+    @Query( value="SELECT * FROM POST WHERE (REPOST_USER ISNULL AND POST_MESSAGE LIKE %?1%) OR (REPOST_USER != NULL AND QUOTE_MESSAGE LIKE '%?1%');",
+            nativeQuery = true)
+    List<Post> search(String word);
 }
