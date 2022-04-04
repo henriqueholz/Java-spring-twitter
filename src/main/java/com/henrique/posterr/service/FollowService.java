@@ -50,4 +50,20 @@ public class FollowService {
         }
         R_Follow.delete(follower);
     }
+
+    public boolean followCheck(PosterrUser loggedUser, Long user_id) throws Exception
+    {
+        PosterrUser checkedUser = R_User.findById(user_id).orElse(null);
+        if(checkedUser == null)
+        {
+            throw new Exception("User not found");
+        }
+
+        Follower follower = R_Follow.findByFollowingAndFollower(checkedUser, loggedUser).orElse(null);
+        if(follower == null)
+        {
+            return false;
+        }
+        return true;
+    }
 }

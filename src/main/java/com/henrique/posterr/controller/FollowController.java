@@ -59,4 +59,22 @@ public class FollowController {
 
         return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "followcheck/{user_id}", produces = "application/json")
+    public ResponseEntity<Object> followCheck(
+            @PathVariable("user_id") long user_id
+    ) throws Exception
+    {
+        if (loggedUser == null) {
+            getLoggedUser();
+        }
+        if (followService.followCheck(loggedUser, user_id)) {
+            apiResponse.setMessage("Logged user is following this user");
+        } else {
+            apiResponse.setMessage("Logged user is not following this user");
+        }
+        apiResponse.setData(user_id);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
+    }
 }
