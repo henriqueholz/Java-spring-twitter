@@ -32,6 +32,7 @@ public class PostController {
 
     public PosterrUser loggedUser;
 
+    // Mocking the logged user
     public void getLoggedUser() {
         long mockedUserId = 1;
         loggedUser = R_User.findByUserid(mockedUserId);
