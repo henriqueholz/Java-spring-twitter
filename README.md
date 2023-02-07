@@ -1,6 +1,5 @@
 Henrique Holz de Castro
 # posterr
-Strider backend technical assessment test using JAVA Spring Boot.
 
 ## Installation
 - Unzip the zip file
